@@ -7,6 +7,9 @@ public class Staff {
     private String birthDay;
     private String homeTown;
 
+    public Staff() {
+
+    }
 
     public Staff(String staffId, String name, String gender, String birthDay, String homeTown) {
         this.staffId = staffId;

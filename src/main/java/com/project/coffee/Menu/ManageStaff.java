@@ -45,7 +45,7 @@ public class ManageStaff {
                     staffHandler.delete();
                     break;
                 case 6:
-                    System.out.println("Option 2 selected");
+                    staffHandler.checkStaffBirthdayInCurrentMonth();
                     break;
                 default:
                     System.out.println("Invalid selection");
