@@ -3,10 +3,14 @@ package com.project.coffee.Model;
 public class Food {
     private String foodId;
     private String foodName;
-    private Number price;
-    private Number quantity;
+    private Integer price;
+    private Integer quantity;
 
-    public Food(String foodId, String foodName, Number price, Number quantity) {
+    public Food() {
+
+    }
+
+    public Food(String foodId, String foodName, Integer price, Integer quantity) {
         this.foodId = foodId;
         this.foodName = foodName;
         this.price = price;
@@ -29,19 +33,19 @@ public class Food {
         this.foodName = foodName;
     }
 
-    public Number getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(Number price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
-    public Number getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Number quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 }

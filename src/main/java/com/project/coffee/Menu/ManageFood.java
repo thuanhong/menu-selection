@@ -1,12 +1,13 @@
 package com.project.coffee.Menu;
 
-
+import com.project.coffee.Handler.FoodHandler;
 import com.project.coffee.Utils.HandleInputSelection;
 
 public class ManageFood {
 
     public static void main() {
         int swValue;
+        FoodHandler foodHandler = new FoodHandler();
         do {
             System.out.println("=============================");
             System.out.println("|        MANAGE FOOD        |");
@@ -27,22 +28,19 @@ public class ManageFood {
                 case 0:
                     break;
                 case 1:
-//                    ReadData.main();
+                    foodHandler.foodList(0, null);
                     break;
                 case 2:
-                    System.out.println("Option 2 selected");
+                    foodHandler.foodList(1, null);
                     break;
                 case 3:
-                    System.out.println("Option 2 selected");
+                    foodHandler.searchByPrice();
                     break;
                 case 4:
-                    System.out.println("Option 2 selected");
+                    foodHandler.add();
                     break;
                 case 5:
-                    System.out.println("Option 2 selected");
-                    break;
-                case 6:
-                    System.out.println("Option 2 selected");
+                    foodHandler.delete();
                     break;
                 default:
                     System.out.println("Invalid selection");

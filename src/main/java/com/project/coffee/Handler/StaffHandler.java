@@ -7,7 +7,6 @@ import com.project.coffee.Utils.Constants;
 import com.project.coffee.Utils.HandleInputSelection;
 import com.project.coffee.Utils.UtilsHandler;
 import org.jetbrains.annotations.Nullable;
-import org.json.simple.JSONArray;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -16,11 +15,10 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class StaffHandler extends UtilsHandler implements MenuAction {
-    private ArrayList<Staff> staffData = new ArrayList<Staff>();
+    private ArrayList<Staff> staffData;
 
     public StaffHandler() {
-        JSONArray staffDataJsonArray = this.getFileData(Constants.STAFF_FILE_NAME);
-        this.convertJsonDataToStaffData(staffDataJsonArray);
+        this.staffData = this.convertJsonDataToArrayList(Constants.STAFF_FILE_NAME, Staff.class);
     }
 
     public ArrayList<Staff> getStaffData() {
@@ -106,26 +104,22 @@ public class StaffHandler extends UtilsHandler implements MenuAction {
     }
 
     public void checkStaffList(@Nullable ArrayList<Staff> staffData) {
-        staffData = staffData == null ? this.staffData : staffData;
-        System.out.println();
-        String leftAlignFormat = "| %-5s | %-25s | %-15s | %-15s | %-25s |%n";
-        System.out.format(leftAlignFormat, "STT", "Ten Nhan Vien", "Ngay Sinh", "Gioi Tinh", "Que Quan");
-        System.out.format(leftAlignFormat, "---", "-------------", "-------------", "-------------", "-------------");
+        ArrayList<String> columns = new ArrayList<String>() {{
+            add("STT");
+            add("Ten Nhan Vien");
+            add("Ngay Sinh");
+            add("Gioi Tinh");
+            add("Que Quan");
+        }};
 
-        for (int i = 0; i < staffData.size(); i++) {
-            Staff staff = staffData.get(i);
-            System.out.format(leftAlignFormat, i+1, staff.getName(), staff.getBirthDay(), staff.getGender(), staff.getHomeTown());
-        }
-        System.out.println();
-    }
+        ArrayList<String> methods = new ArrayList<String>() {{
+            add("getName");
+            add("getBirthDay");
+            add("getGender");
+            add("getHomeTown");
+        }};
 
-    private void convertJsonDataToStaffData(JSONArray staffDataJsonArray) {
-        for(int i = 0; i < staffDataJsonArray.size(); i++){
-            Object object = staffDataJsonArray.get(i);
-            Gson gson = new Gson();
-            Staff staff = gson.fromJson(object.toString(), Staff.class);
-            this.staffData.add(staff);
-        }
+        this.printTable(this.staffData, columns, Staff.class, methods);
     }
 
     public void search() {
@@ -167,44 +161,40 @@ public class StaffHandler extends UtilsHandler implements MenuAction {
         System.out.print("Nhap thong tin can tim: ");
         String str = scanner.next();
 
-        ArrayList<Staff> staffDataFilterd = this.staffData.stream()
-                .filter(staff -> {
-                    try {
-                        String data = (String) Staff.class.getMethod(methodName).invoke(staff);
-                        return data.toLowerCase().contains(str.toLowerCase());
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    } catch (InvocationTargetException e) {
-                        e.printStackTrace();
-                    } catch (NoSuchMethodException e) {
-                        e.printStackTrace();
-                    }
-                    return false;
-                })
-                .collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<Staff> staffDataFiltered = this.staffData.stream()
+            .filter(staff -> {
+                try {
+                    String data = (String) Staff.class.getMethod(methodName).invoke(staff);
+                    return data.toLowerCase().contains(str.toLowerCase());
+                } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+                return false;
+            })
+            .collect(Collectors.toCollection(ArrayList::new));
 
-        if (staffDataFilterd.size() == 0) {
+        if (staffDataFiltered.size() == 0) {
             System.out.println("==================> Not Found <==================");
             return;
         }
 
-        this.checkStaffList(staffDataFilterd);
+        this.checkStaffList(staffDataFiltered);
     }
 
     public void checkStaffBirthdayInCurrentMonth() {
         int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
-        ArrayList<Staff> staffDataFilterd = this.staffData.stream()
+        ArrayList<Staff> staffDataFiltered = this.staffData.stream()
                 .filter(staff -> {
                     String[] data = staff.getBirthDay().split("/");
                     return Integer.parseInt(data[1]) == month;
                 })
                 .collect(Collectors.toCollection(ArrayList::new));
 
-        if (staffDataFilterd.size() == 0) {
+        if (staffDataFiltered.size() == 0) {
             System.out.println("==================> Not Found <==================");
             return;
         }
 
-        this.checkStaffList(staffDataFilterd);
+        this.checkStaffList(staffDataFiltered);
     }
 }
