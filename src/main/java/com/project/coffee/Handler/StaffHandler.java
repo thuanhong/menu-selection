@@ -9,9 +9,7 @@ import com.project.coffee.Utils.UtilsHandler;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class StaffHandler extends UtilsHandler implements MenuAction {
@@ -104,13 +102,12 @@ public class StaffHandler extends UtilsHandler implements MenuAction {
     }
 
     public void checkStaffList(@Nullable ArrayList<Staff> staffData) {
-        ArrayList<String> columns = new ArrayList<String>() {{
-            add("STT");
-            add("Ten Nhan Vien");
-            add("Ngay Sinh");
-            add("Gioi Tinh");
-            add("Que Quan");
-        }};
+        Map<String, Integer> columns = new LinkedHashMap<String, Integer>();
+        columns.put("STT", 5);
+        columns.put("Ten Nhan Vien", 25);
+        columns.put("Ngay Sinh", 20);
+        columns.put("Gioi Tinh", 10);
+        columns.put("Que Quan", 20);
 
         ArrayList<String> methods = new ArrayList<String>() {{
             add("getName");
@@ -119,7 +116,9 @@ public class StaffHandler extends UtilsHandler implements MenuAction {
             add("getHomeTown");
         }};
 
-        this.printTable(this.staffData, columns, Staff.class, methods);
+        staffData = staffData != null ? staffData : this.staffData;
+
+        this.printTable(staffData, columns, Staff.class, methods);
     }
 
     public void search() {
@@ -159,7 +158,7 @@ public class StaffHandler extends UtilsHandler implements MenuAction {
     private void searchBy(String methodName) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Nhap thong tin can tim: ");
-        String str = scanner.next();
+        String str = scanner.nextLine();
 
         ArrayList<Staff> staffDataFiltered = this.staffData.stream()
             .filter(staff -> {
@@ -172,6 +171,7 @@ public class StaffHandler extends UtilsHandler implements MenuAction {
                 return false;
             })
             .collect(Collectors.toCollection(ArrayList::new));
+
 
         if (staffDataFiltered.size() == 0) {
             System.out.println("==================> Not Found <==================");

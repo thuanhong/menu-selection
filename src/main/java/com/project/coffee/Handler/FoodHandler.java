@@ -7,10 +7,7 @@ import com.project.coffee.Utils.Constants;
 import com.project.coffee.Utils.UtilsHandler;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class FoodHandler extends UtilsHandler implements MenuAction {
@@ -19,7 +16,7 @@ public class FoodHandler extends UtilsHandler implements MenuAction {
 
     public FoodHandler() {
         this.foodData = this.convertJsonDataToArrayList(Constants.FOOD_FILE_NAME, Food.class);
-        Collections.sort(this.foodData, Comparator.comparing(Food::getPrice));
+        sortFoodData();
     }
 
     public ArrayList<Food> getFoodData() {
@@ -28,6 +25,10 @@ public class FoodHandler extends UtilsHandler implements MenuAction {
 
     public void setFoodData(ArrayList<Food> foodData) {
         this.foodData = foodData;
+    }
+
+    private void sortFoodData() {
+        Collections.sort(this.foodData, Comparator.comparing(Food::getPrice));
     }
 
     public void add() {
@@ -54,6 +55,7 @@ public class FoodHandler extends UtilsHandler implements MenuAction {
         this.foodData.add(newFood);
         String foodDataJsonString = new Gson().toJson(this.foodData);
         this.writeFileData(Constants.FOOD_FILE_NAME, foodDataJsonString);
+        this.sortFoodData();
         System.out.println("Them thuc an thanh cong");
     }
 
@@ -75,13 +77,11 @@ public class FoodHandler extends UtilsHandler implements MenuAction {
     }
 
     public void foodList(Integer flag, @Nullable ArrayList<Food> foodData) {
-
-        ArrayList<String> columns = new ArrayList<String>() {{
-            add("STT");
-            add("Ten Mon An");
-            add("Gia");
-            add("So Luong");
-        }};
+        Map<String, Integer> columns = new LinkedHashMap<String, Integer>();
+        columns.put("STT", 5);
+        columns.put("Ten Mon An", 25);
+        columns.put("Gia", 7);
+        columns.put("So Luong", 5);
 
         ArrayList<String> methods = new ArrayList<String>() {{
             add("getFoodName");

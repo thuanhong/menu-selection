@@ -1,13 +1,10 @@
 package com.project.coffee.Utils;
 
 import com.google.gson.Gson;
-import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONArray;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class UtilsHandler {
@@ -27,7 +24,7 @@ public class UtilsHandler {
         return uuid.toString();
     }
 
-    protected  <T> ArrayList<T> convertJsonDataToArrayList(String fileName, Class<T> type) {
+    protected <T> ArrayList<T> convertJsonDataToArrayList(String fileName, Class<T> type) {
         JSONArray jsonArrayData = this.getFileData(fileName);
 
         ArrayList<T> result = new ArrayList<T>();
@@ -40,13 +37,17 @@ public class UtilsHandler {
         }
         return result;
     }
-    protected  <T> void printTable(ArrayList<T> tableData, ArrayList<String> columns, Class<T> Type, ArrayList<String> listMethod) {
+    protected <T> void printTable(ArrayList<T> tableData, Map<String, Integer> columns, Class<T> Type, ArrayList<String> listMethod) {
         System.out.println();
-        String leftAlignFormat = "| %-5s " + StringUtils.repeat("| %-20s ", columns.size() - 1) + "|%n";
-        System.out.format(leftAlignFormat, columns.toArray());
+        String leftAlignFormat = "";
+        Set<String> set = columns.keySet();
+        for (String key : set) {
+            leftAlignFormat += "| %-"+ columns.get(key) +"s ";
+        }
+        leftAlignFormat += "|%n";
+        System.out.format(leftAlignFormat, set.toArray());
         String[] slashes = new String[tableData.size()];
-        Arrays.fill(slashes, "-------------");
-        slashes[0] = "---";
+        Arrays.fill(slashes, "-----");
         System.out.format(leftAlignFormat, Arrays.stream(slashes).toArray());
 
         for (int i = 0; i < tableData.size(); i++) {
@@ -56,10 +57,10 @@ public class UtilsHandler {
             listMethod.stream()
                 .map(method -> {
                     try {
-                        String data = (String) Type.getMethod(method).invoke(row);
+                        Object data = Type.getMethod(method).invoke(row);
                         rowData.add(data);
                         return true;
-                    } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+                    }catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
                         e.printStackTrace();
                     }
                     return false;

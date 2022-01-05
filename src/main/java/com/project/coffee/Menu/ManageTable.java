@@ -1,23 +1,26 @@
 package com.project.coffee.Menu;
 
 
+import com.project.coffee.Handler.TableHandler;
 import com.project.coffee.Utils.HandleInputSelection;
 
 public class ManageTable {
 
     public static void main() {
         int swValue;
+
+        TableHandler tableHandler = new TableHandler();
         do {
             System.out.println("=============================");
             System.out.println("|        MANAGE TABLE       |");
             System.out.println("=============================");
             System.out.println("1. Xem bàn trống            ");
-            System.out.println("3. Tìm kiếm bàn             ");
+            System.out.println("3. Tìm kiếm bàn theo sức chứa");
             System.out.println("4. Thêm bàn                  ");
             System.out.println("5. Xoá bàn                   ");
-            System.out.println("5. Cập nhật bàn              ");
-            System.out.println("5. Đặt bàn                   ");
-            System.out.println("5. Thanh toán                ");
+            System.out.println("6. Cập nhật bàn              ");
+            System.out.println("7. Đặt bàn                   ");
+            System.out.println("8. Thanh toán                ");
             System.out.println("0. Thoat                     ");
             System.out.println("============================ ");
             swValue = HandleInputSelection.inInt(" Select option: ");
@@ -29,22 +32,25 @@ public class ManageTable {
                 case 0:
                     break;
                 case 1:
-//                    ReadData.main();
+                    tableHandler.checkTableList(null);
                     break;
                 case 2:
-                    System.out.println("Option 2 selected");
+                    tableHandler.searchByContain();
                     break;
                 case 3:
-                    System.out.println("Option 2 selected");
+                    tableHandler.add();
                     break;
                 case 4:
-                    System.out.println("Option 2 selected");
+                    tableHandler.delete();
                     break;
                 case 5:
-                    System.out.println("Option 2 selected");
+                    tableHandler.update();
                     break;
                 case 6:
-                    System.out.println("Option 2 selected");
+                    System.out.println("dat ban");
+                    break;
+                case 7:
+                    System.out.println("thanh toan");
                     break;
                 default:
                     System.out.println("Invalid selection");
