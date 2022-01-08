@@ -1,16 +1,17 @@
 package com.project.coffee.Handler;
 
 import com.google.gson.Gson;
-import com.project.coffee.Interface.MenuAction;
+import com.project.coffee.Interface.IMenuAction;
 import com.project.coffee.Model.Food;
 import com.project.coffee.Utils.Constants;
+import com.project.coffee.Utils.HandleInputSelection;
 import com.project.coffee.Utils.UtilsHandler;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class FoodHandler extends UtilsHandler implements MenuAction {
+public class FoodHandler extends UtilsHandler implements IMenuAction {
     private ArrayList<Food> foodData;
     private Integer flag = 0;
 
@@ -32,24 +33,19 @@ public class FoodHandler extends UtilsHandler implements MenuAction {
     }
 
     public void add() {
-        Scanner scanner = new Scanner(System.in);
         Food newFood = new Food();
         String inputString;
         Integer inputInt;
 
         newFood.setFoodId(this.getUUIDv4());
 
-        System.out.print("Nhap ten mon an: ");
-        inputString = scanner.nextLine();
+        inputString = HandleInputSelection.inString(" Nhap ten mon an: ");
         newFood.setFoodName(inputString);
 
-        System.out.print("Nhap gia: ");
-        inputInt = scanner.nextInt();
+        inputInt = HandleInputSelection.inInt(" Nhap gia: ");
         newFood.setPrice(inputInt);
-        scanner.nextLine();
 
-        System.out.print("Nhap so luong: ");
-        inputInt = scanner.nextInt();
+        inputInt = HandleInputSelection.inInt(" Nhap so luong: ");
         newFood.setQuantity(inputInt);
 
         this.foodData.add(newFood);
@@ -57,6 +53,7 @@ public class FoodHandler extends UtilsHandler implements MenuAction {
         this.writeFileData(Constants.FOOD_FILE_NAME, foodDataJsonString);
         this.sortFoodData();
         System.out.println("Them thuc an thanh cong");
+        System.out.println();
     }
 
     public void update() {
@@ -65,15 +62,13 @@ public class FoodHandler extends UtilsHandler implements MenuAction {
     public void delete() {
         this.foodList(this.flag, null);
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Nhap STT thuc an can xoa: ");
-        int inputInt = scanner.nextInt();
-
+        int inputInt = HandleInputSelection.inInt(" Nhap STT thuc an can xoa: ");
         this.foodData.remove(inputInt-1);
 
         String staffDataJsonString = new Gson().toJson(this.foodData);
         this.writeFileData(Constants.FOOD_FILE_NAME, staffDataJsonString);
         System.out.println("Xoa thuc an thanh cong");
+        System.out.println();
     }
 
     public void foodList(Integer flag, @Nullable ArrayList<Food> foodData) {
@@ -82,11 +77,13 @@ public class FoodHandler extends UtilsHandler implements MenuAction {
         columns.put("Ten Mon An", 25);
         columns.put("Gia", 7);
         columns.put("So Luong", 5);
+        columns.put("Danh muc", 15);
 
         ArrayList<String> methods = new ArrayList<String>() {{
             add("getFoodName");
             add("getPrice");
             add("getQuantity");
+            add("getCategory");
         }};
 
         if (this.flag != flag && foodData == null) {
@@ -99,10 +96,8 @@ public class FoodHandler extends UtilsHandler implements MenuAction {
         this.printTable(foodData, columns, Food.class, methods);
     }
 
-    public void searchByPrice() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Nhap khoang gia can tim (ex: 30-90): ");
-        String inputString = scanner.nextLine();
+    public void search() {
+        String inputString = HandleInputSelection.inPrice(" Nhap khoang gia can tim (ex: 30-90): ");
 
         String[] priceRange = inputString.split("-");
 

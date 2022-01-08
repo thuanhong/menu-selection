@@ -1,6 +1,10 @@
 package com.project.coffee.Utils;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class HandleInputSelection {
     public static void printPrompt(String prompt) {
         System.out.print(prompt + " ");
@@ -57,31 +61,50 @@ public class HandleInputSelection {
         }
     }
 
-    public static char inChar(String prompt) {
-        int aChar = 0;
-
-        inputFlush();
-        printPrompt(prompt);
-
-        try {
-            aChar = System.in.read();
-        } catch (java.io.IOException e) {
-            System.out.println("Input error");
-        }
-        inputFlush();
-        return (char) aChar;
-    }
-
-    public static double inDouble(String prompt) {
+    public static String inDate(String prompt) {
         while (true) {
             inputFlush();
             printPrompt(prompt);
+
+            String strDate = inString();
+            SimpleDateFormat dateTimeFormat = new SimpleDateFormat(Constants.DATE_TIME_FORMAT);
+            dateTimeFormat.setLenient(false);
             try {
-                return Double.valueOf(inString().trim()).doubleValue();
-            } catch (NumberFormatException e) {
-                System.out
-                        .println("Invalid input. Not a floating point number");
+                Date javaDate = dateTimeFormat.parse(strDate);
+                return dateTimeFormat.format(javaDate);
+            } catch (ParseException e) {
+                System.out.println(strDate + " is invalid Date format");
             }
+        }
+    }
+
+    public static String inGender(String prompt) {
+        while (true) {
+            inputFlush();
+            printPrompt(prompt);
+
+            String genderString = inString();
+            if (genderString.equals("Nam") || genderString.equals("nu")) {
+                return genderString;
+            }
+            System.out.println(genderString + " is invalid gender, only (Nam/Nu)");
+        }
+    }
+
+    public static String inPrice(String prompt) {
+        while (true) {
+            inputFlush();
+            printPrompt(prompt);
+            String priceString = inString();
+            try {
+                String[] priceRange = priceString.split("-");
+                Integer.valueOf(priceRange[0]).intValue();
+                Integer.valueOf(priceRange[1]).intValue();
+                return priceString;
+            } catch (Exception e) {
+                System.out.println(" Invalid price range format");
+            }
+
         }
     }
 }

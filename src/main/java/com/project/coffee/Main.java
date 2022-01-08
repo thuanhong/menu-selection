@@ -4,11 +4,7 @@ package com.project.coffee;
 import com.project.coffee.Menu.ManageFood;
 import com.project.coffee.Menu.ManageStaff;
 import com.project.coffee.Menu.ManageTable;
-import com.project.coffee.Utils.Constants;
 import com.project.coffee.Utils.HandleInputSelection;
-import com.project.coffee.Utils.PrintTable;
-import com.project.coffee.Utils.ReadData;
-import org.json.simple.JSONArray;
 
 public class Main {
 
@@ -43,10 +39,6 @@ public class Main {
                     ManageFood.main();
                     break;
                 case 4:
-
-                    ReadData ReadDataInstance = new ReadData(Constants.STAFF_FILE_NAME);
-                    JSONArray staffData = ReadDataInstance.getData();
-                    PrintTable.output(staffData);
                     break;
                 default:
                     System.out.println("Invalid selection");

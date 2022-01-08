@@ -34,7 +34,7 @@ public class ManageFood {
                     foodHandler.foodList(1, null);
                     break;
                 case 3:
-                    foodHandler.searchByPrice();
+                    foodHandler.search();
                     break;
                 case 4:
                     foodHandler.add();

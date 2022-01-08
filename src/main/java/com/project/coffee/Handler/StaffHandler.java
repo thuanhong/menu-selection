@@ -1,7 +1,7 @@
 package com.project.coffee.Handler;
 
 import com.google.gson.Gson;
-import com.project.coffee.Interface.MenuAction;
+import com.project.coffee.Interface.IMenuAction;
 import com.project.coffee.Model.Staff;
 import com.project.coffee.Utils.Constants;
 import com.project.coffee.Utils.HandleInputSelection;
@@ -12,7 +12,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class StaffHandler extends UtilsHandler implements MenuAction {
+public class StaffHandler extends UtilsHandler implements IMenuAction {
     private ArrayList<Staff> staffData;
 
     public StaffHandler() {
@@ -28,96 +28,100 @@ public class StaffHandler extends UtilsHandler implements MenuAction {
     }
 
     public void add() {
-        Scanner scanner = new Scanner(System.in);
         Staff newStaff = new Staff();
 
-        System.out.print("Nhap ten nhan vien: ");
-        String inputString = scanner.nextLine();
+        String inputString = HandleInputSelection.inString(" Nhap ten nhan vien: ");
         newStaff.setName(inputString);
 
-        System.out.print("Nhap ngay sinh: ");
-        inputString = scanner.nextLine();
+        inputString = HandleInputSelection.inDate(" Nhap ngay sinh: ");
         newStaff.setBirthDay(inputString);
 
-        System.out.print("Nhap gioi tinh: ");
-        inputString = scanner.nextLine();
+        inputString = HandleInputSelection.inGender(" Nhap gioi tinh: ");
         newStaff.setGender(inputString);
 
-        System.out.print("Nhap que quan: ");
-        inputString = scanner.nextLine();
+        inputString = HandleInputSelection.inString(" Nhap que quan: ");
         newStaff.setHomeTown(inputString);
 
-        newStaff.setStaffId(this.getUUIDv4());
+        inputString = HandleInputSelection.inDate(" Nhap ngay vao lam viec: ");
+        newStaff.setOnboarding(inputString);
+
+        inputString = HandleInputSelection.inString(" Nhap bo phan: ");
+        newStaff.setDepartment(inputString);
+
+        Integer lastStaffId = this.staffData.get(this.staffData.size() - 1).getStaffId();
+        newStaff.setStaffId(lastStaffId+1);
 
         this.staffData.add(newStaff);
         String staffDataJsonString = new Gson().toJson(this.staffData);
         this.writeFileData(Constants.STAFF_FILE_NAME, staffDataJsonString);
         System.out.println("Them nhan vien thanh cong");
+        System.out.println();
     }
 
     public void update() {
         this.checkStaffList(null);
 
-        Scanner scanner = new Scanner(System.in);
+        int inputInt = HandleInputSelection.inInt(" Nhap STT nhan vien can cap nhat: ");
 
-        System.out.print("Nhap STT nhan vien can cap nhat: ");
-        int inputInt = scanner.nextInt();
-
-        String inputString = scanner.nextLine();
+        String inputString;
         Staff newStaff = this.staffData.get(inputInt-1);
 
-        System.out.print("Nhap ten nhan vien: ");
-        inputString = scanner.nextLine();
+        inputString = HandleInputSelection.inString(" Nhap ten nhan vien: ");
         newStaff.setName(inputString);
 
-        System.out.print("Nhap ngay sinh: ");
-        inputString = scanner.nextLine();
+        inputString = HandleInputSelection.inDate(" Nhap ngay sinh: ");
         newStaff.setBirthDay(inputString);
 
-        System.out.print("Nhap gioi tinh: ");
-        inputString = scanner.nextLine();
+        inputString = HandleInputSelection.inGender(" Nhap gioi tinh: ");
         newStaff.setGender(inputString);
 
-        System.out.print("Nhap que quan: ");
-        inputString = scanner.nextLine();
+        inputString = HandleInputSelection.inString(" Nhap que quan: ");
         newStaff.setHomeTown(inputString);
+
+        inputString = HandleInputSelection.inDate(" Nhap ngay vao lam viec: ");
+        newStaff.setOnboarding(inputString);
+
+        inputString = HandleInputSelection.inString(" Nhap bo phan: ");
+        newStaff.setDepartment(inputString);
 
         String staffDataJsonString = new Gson().toJson(this.staffData);
         this.writeFileData(Constants.STAFF_FILE_NAME, staffDataJsonString);
         System.out.println("Cap nhat nhan vien thanh cong");
+        System.out.println();
     }
 
     public void delete() {
         this.checkStaffList(null);
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Nhap STT nhan vien can xoa: ");
-        int inputInt = scanner.nextInt();
-
+        int inputInt = HandleInputSelection.inInt(" Nhap STT nhan vien can xoa: ");
         this.staffData.remove(inputInt-1);
 
         String staffDataJsonString = new Gson().toJson(this.staffData);
         this.writeFileData(Constants.STAFF_FILE_NAME, staffDataJsonString);
         System.out.println("Xoa nhan vien thanh cong");
+        System.out.println();
     }
 
     public void checkStaffList(@Nullable ArrayList<Staff> staffData) {
         Map<String, Integer> columns = new LinkedHashMap<String, Integer>();
         columns.put("STT", 5);
+        columns.put("Ma NV", 5);
         columns.put("Ten Nhan Vien", 25);
-        columns.put("Ngay Sinh", 20);
+        columns.put("Ngay Sinh", 10);
         columns.put("Gioi Tinh", 10);
         columns.put("Que Quan", 20);
+        columns.put("Bo Phan", 15);
 
         ArrayList<String> methods = new ArrayList<String>() {{
+            add("getStaffId");
             add("getName");
             add("getBirthDay");
             add("getGender");
             add("getHomeTown");
+            add("getDepartment");
         }};
 
         staffData = staffData != null ? staffData : this.staffData;
-
         this.printTable(staffData, columns, Staff.class, methods);
     }
 
@@ -156,9 +160,7 @@ public class StaffHandler extends UtilsHandler implements MenuAction {
     }
 
     private void searchBy(String methodName) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Nhap thong tin can tim: ");
-        String str = scanner.nextLine();
+        String str = HandleInputSelection.inString(" Nhap thong tin can tim: ");
 
         ArrayList<Staff> staffDataFiltered = this.staffData.stream()
             .filter(staff -> {

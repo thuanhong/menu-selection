@@ -1,29 +1,23 @@
 package com.project.coffee.Model;
 
 public class Staff {
-    private String staffId;
+    private Integer staffId;
     private String name;
     private String gender;
     private String birthDay;
     private String homeTown;
+    private String department;
+    private String onboarding;
 
     public Staff() {
 
     }
 
-    public Staff(String staffId, String name, String gender, String birthDay, String homeTown) {
-        this.staffId = staffId;
-        this.name = name;
-        this.gender = gender;
-        this.birthDay = birthDay;
-        this.homeTown = homeTown;
-    }
-
-    public String getStaffId() {
+    public Integer getStaffId() {
         return staffId;
     }
 
-    public void setStaffId(String staffId) {
+    public void setStaffId(Integer staffId) {
         this.staffId = staffId;
     }
 
@@ -59,4 +53,32 @@ public class Staff {
         this.homeTown = homeTown;
     }
 
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getOnboarding() {
+        return onboarding;
+    }
+
+    public void setOnboarding(String onboarding) {
+        this.onboarding = onboarding;
+    }
+
+    @Override
+    public String toString() {
+        return "Staff{" +
+                "staffId=" + staffId +
+                ", name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                ", birthDay='" + birthDay + '\'' +
+                ", homeTown='" + homeTown + '\'' +
+                ", department='" + department + '\'' +
+                ", onboarding='" + onboarding + '\'' +
+                '}';
+    }
 }

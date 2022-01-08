@@ -1,101 +1,151 @@
 [{
-  "foodId": "388fe981-0072-422d-a7eb-5dc688086764",
-  "foodName": "cursus vestibulum proin",
-  "price": 93,
-  "quantity": 14
+  "foodId": "b3c96707-ad96-4e36-b704-021fb39cb722",
+  "foodName": "Hydrochlorothiazide",
+  "price": 55,
+  "quantity": 15,
+  "category": "Thức uống"
 }, {
-  "foodId": "59e3476f-45f7-48d4-a287-4893d526d2d5",
-  "foodName": "in",
+  "foodId": "44658604-2d56-4a6c-8604-46862f21584d",
+  "foodName": "Leader Ibuprofen",
   "price": 30,
-  "quantity": 19
+  "quantity": 12,
+  "category": "Thức ăn"
 }, {
-  "foodId": "79ecd13c-d96c-49cb-b84d-85eeb0237cce",
-  "foodName": "sapien",
+  "foodId": "0520dc2d-5e90-4b78-834b-0787290a2453",
+  "foodName": "CAREONE",
+  "price": 57,
+  "quantity": 13,
+  "category": "Thức ăn"
+}, {
+  "foodId": "caa851bc-dbef-45f9-a7cc-7e54328566aa",
+  "foodName": "Chlordiazepoxide",
+  "price": 40,
+  "quantity": 18,
+  "category": "Thức ăn"
+}, {
+  "foodId": "1381d110-6762-4c07-a76a-90414e7b496b",
+  "foodName": "MoistureWorx",
+  "price": 63,
+  "quantity": 18,
+  "category": "Thức uống"
+}, {
+  "foodId": "2264e9e7-4f28-4a43-8ae2-bc78d225493e",
+  "foodName": "The New Aid",
+  "price": 71,
+  "quantity": 14,
+  "category": "Thức uống"
+}, {
+  "foodId": "1c91dadb-2bbb-4ef8-9b56-782a55850a9e",
+  "foodName": "Enbac skin",
+  "price": 44,
+  "quantity": 13,
+  "category": "Thức uống"
+}, {
+  "foodId": "015916eb-54df-4d59-a49e-0c643efc380f",
+  "foodName": "SHISEIDO ",
+  "price": 44,
+  "quantity": 18,
+  "category": "Thức ăn"
+}, {
+  "foodId": "f6c8c3e2-fa4a-46a0-8bb4-8f856c0d1bf3",
+  "foodName": "Oxygen",
   "price": 78,
-  "quantity": 8
+  "quantity": 20,
+  "category": "Thức uống"
 }, {
-  "foodId": "52970ecb-5a98-4ee1-be96-d88bf39990cf",
-  "foodName": "semper est quam",
-  "price": 64,
-  "quantity": 8
+  "foodId": "d479d450-63eb-452c-a127-cd842272c92f",
+  "foodName": "ASH MIX",
+  "price": 68,
+  "quantity": 15,
+  "category": "Thức ăn"
 }, {
-  "foodId": "e6c0fac4-73a7-466c-ba23-3581322a50b6",
-  "foodName": "non",
-  "price": 80,
-  "quantity": 17
+  "foodId": "e91f66b7-c1d5-4592-ace3-a08fa141403f",
+  "foodName": "Fluconazole",
+  "price": 34,
+  "quantity": 20,
+  "category": "Thức uống"
 }, {
-  "foodId": "45a5967f-bc65-4b12-a832-31dce7ab8381",
-  "foodName": "aenean sit",
-  "price": 69,
-  "quantity": 20
+  "foodId": "5d94ebd9-d349-409b-a6f5-a384efb50faf",
+  "foodName": "Enalaprilat",
+  "price": 90,
+  "quantity": 17,
+  "category": "Thức uống"
 }, {
-  "foodId": "14baf36d-84ab-4c7e-8344-df1425dfcda3",
-  "foodName": "pellentesque volutpat dui",
-  "price": 38,
-  "quantity": 15
+  "foodId": "4946867d-1c79-4332-88bd-531daacb58a1",
+  "foodName": "Antibac Foam Wash",
+  "price": 76,
+  "quantity": 12,
+  "category": "Thức uống"
 }, {
-  "foodId": "fd38b9c7-3a74-4c00-827c-a77ac518aec5",
-  "foodName": "non quam",
-  "price": 88,
-  "quantity": 17
+  "foodId": "da4edb16-d4bb-4e9b-a40f-120340d9d19f",
+  "foodName": "Escitalopram",
+  "price": 75,
+  "quantity": 10,
+  "category": "Thức uống"
 }, {
-  "foodId": "53db6ac6-7dcf-4d5c-a43f-a43d7069840d",
-  "foodName": "sit amet",
-  "price": 93,
-  "quantity": 18
-}, {
-  "foodId": "89804038-84d4-4555-9503-085e31063ec3",
-  "foodName": "dapibus",
-  "price": 25,
-  "quantity": 13
-}, {
-  "foodId": "433426a3-426f-4413-b28a-b5cf99d08378",
-  "foodName": "in",
-  "price": 30,
-  "quantity": 7
-}, {
-  "foodId": "a50a811a-2fb5-4119-8126-383b123de094",
-  "foodName": "ut",
-  "price": 70,
-  "quantity": 9
-}, {
-  "foodId": "c25a8ee5-7399-4046-b9a9-79d4543487da",
-  "foodName": "enim leo",
-  "price": 64,
-  "quantity": 5
-}, {
-  "foodId": "5057ea97-94f7-48f1-932c-6d25bb34128d",
-  "foodName": "pede ullamcorper",
-  "price": 54,
-  "quantity": 15
-}, {
-  "foodId": "ec22623d-528c-4033-ae8e-c4b72b0a1e8f",
-  "foodName": "leo",
-  "price": 47,
-  "quantity": 5
-}, {
-  "foodId": "0b698657-bda7-4b67-baec-f738d9458ae3",
-  "foodName": "ante ipsum",
-  "price": 49,
-  "quantity": 10
-}, {
-  "foodId": "808e55d0-892a-4a7a-9d02-af6d180bb639",
-  "foodName": "imperdiet sapien urna",
+  "foodId": "d1b5b145-b31e-40fb-8b4a-d1118787f788",
+  "foodName": "Miconazole Nitrate",
   "price": 52,
-  "quantity": 15
+  "quantity": 10,
+  "category": "Thức uống"
 }, {
-  "foodId": "3c3ac997-f99f-48f1-bc5d-8dbed546b4e4",
-  "foodName": "vulputate",
-  "price": 96,
-  "quantity": 9
+  "foodId": "3af0d0d2-9bb5-4d7d-abdd-ac08607b0eb7",
+  "foodName": "Alcohol Prep Pad",
+  "price": 31,
+  "quantity": 10,
+  "category": "Thức ăn"
 }, {
-  "foodId": "45624370-58f2-4b66-9abe-4d4ea4c79f4f",
-  "foodName": "lobortis",
-  "price": 100,
-  "quantity": 13
+  "foodId": "6e41f241-949d-434a-847f-632465778f54",
+  "foodName": "Estradiol",
+  "price": 36,
+  "quantity": 15,
+  "category": "Thức ăn"
 }, {
-  "foodId": "1d7bed7a-e147-45ad-b85b-d933bdddf213",
-  "foodName": "sed interdum",
-  "price": 30,
-  "quantity": 19
+  "foodId": "7ae4dae3-894d-4805-893f-d298460c4cc5",
+  "foodName": "SPONGIA TOSTA",
+  "price": 92,
+  "quantity": 11,
+  "category": "Thức ăn"
+}, {
+  "foodId": "7c563ed1-050f-403c-a3c0-e759370c9a8e",
+  "foodName": "Glyburide",
+  "price": 48,
+  "quantity": 13,
+  "category": "Thức uống"
+}, {
+  "foodId": "322cff84-cbbc-4917-80fd-9a3e7e65dd30",
+  "foodName": "VENLAFAXINE",
+  "price": 61,
+  "quantity": 19,
+  "category": "Thức uống"
+}, {
+  "foodId": "8a3140b6-4a37-471b-b3bc-f9995cb7c80a",
+  "foodName": "Leflunomide",
+  "price": 50,
+  "quantity": 15,
+  "category": "Thức uống"
+}, {
+  "foodId": "7ac69e8b-b8c7-44dd-9c73-0f44aa9ea591",
+  "foodName": "QUERCUS POLLEN",
+  "price": 67,
+  "quantity": 18,
+  "category": "Thức uống"
+}, {
+  "foodId": "23edccec-a5ac-45b5-8996-2acbda72b0c5",
+  "foodName": "VYTORIN",
+  "price": 80,
+  "quantity": 17,
+  "category": "Thức ăn"
+}, {
+  "foodId": "e4606a24-344c-41dc-89b7-03c343fcfba0",
+  "foodName": "Russian Olive",
+  "price": 73,
+  "quantity": 19,
+  "category": "Thức uống"
+}, {
+  "foodId": "37a3cb4f-bc1c-4328-b335-f8f64afc574e",
+  "foodName": "Flawless Cappuccino",
+  "price": 68,
+  "quantity": 18,
+  "category": "Thức uống"
 }]

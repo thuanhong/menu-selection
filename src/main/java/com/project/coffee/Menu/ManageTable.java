@@ -15,12 +15,12 @@ public class ManageTable {
             System.out.println("|        MANAGE TABLE       |");
             System.out.println("=============================");
             System.out.println("1. Xem bàn trống            ");
-            System.out.println("3. Tìm kiếm bàn theo sức chứa");
-            System.out.println("4. Thêm bàn                  ");
-            System.out.println("5. Xoá bàn                   ");
-            System.out.println("6. Cập nhật bàn              ");
-            System.out.println("7. Đặt bàn                   ");
-            System.out.println("8. Thanh toán                ");
+            System.out.println("2. Tìm kiếm bàn theo sức chứa");
+            System.out.println("3. Thêm bàn                  ");
+            System.out.println("4. Xoá bàn                   ");
+            System.out.println("5. Cập nhật bàn              ");
+            System.out.println("6. Đặt bàn                   ");
+            System.out.println("7. Thanh toán                ");
             System.out.println("0. Thoat                     ");
             System.out.println("============================ ");
             swValue = HandleInputSelection.inInt(" Select option: ");
@@ -35,7 +35,7 @@ public class ManageTable {
                     tableHandler.checkTableList(null);
                     break;
                 case 2:
-                    tableHandler.searchByContain();
+                    tableHandler.search();
                     break;
                 case 3:
                     tableHandler.add();
@@ -47,10 +47,10 @@ public class ManageTable {
                     tableHandler.update();
                     break;
                 case 6:
-                    System.out.println("dat ban");
+                    tableHandler.order();
                     break;
                 case 7:
-                    System.out.println("thanh toan");
+                    tableHandler.checkout();
                     break;
                 default:
                     System.out.println("Invalid selection");

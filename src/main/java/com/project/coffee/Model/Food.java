@@ -5,16 +5,18 @@ public class Food {
     private String foodName;
     private Integer price;
     private Integer quantity;
+    private String category;
 
     public Food() {
 
     }
 
-    public Food(String foodId, String foodName, Integer price, Integer quantity) {
+    public Food(String foodId, String foodName, Integer price, Integer quantity, String category) {
         this.foodId = foodId;
         this.foodName = foodName;
         this.price = price;
         this.quantity = quantity;
+        this.category = category;
     }
 
     public String getFoodId() {
@@ -47,5 +49,24 @@ public class Food {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    @Override
+    public String toString() {
+        return "Food{" +
+                "foodId='" + foodId + '\'' +
+                ", foodName='" + foodName + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", category='" + category + '\'' +
+                '}';
     }
 }

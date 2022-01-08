@@ -46,7 +46,7 @@ public class UtilsHandler {
         }
         leftAlignFormat += "|%n";
         System.out.format(leftAlignFormat, set.toArray());
-        String[] slashes = new String[tableData.size()];
+        String[] slashes = new String[listMethod.size() + 1];
         Arrays.fill(slashes, "-----");
         System.out.format(leftAlignFormat, Arrays.stream(slashes).toArray());
 

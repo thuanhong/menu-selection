@@ -1,9 +1,10 @@
 package com.project.coffee.Handler;
 
 import com.google.gson.Gson;
-import com.project.coffee.Interface.MenuAction;
+import com.project.coffee.Interface.IMenuAction;
 import com.project.coffee.Model.Table;
 import com.project.coffee.Utils.Constants;
+import com.project.coffee.Utils.HandleInputSelection;
 import com.project.coffee.Utils.UtilsHandler;
 import org.jetbrains.annotations.Nullable;
 
@@ -11,78 +12,75 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class TableHandler extends UtilsHandler implements MenuAction {
+public class TableHandler extends UtilsHandler implements IMenuAction {
     private ArrayList<Table> tableData;
     private ArrayList<Table> emptyData;
+    private FoodHandler foodHandler;
 
     public TableHandler() {
         this.tableData = this.convertJsonDataToArrayList(Constants.TABLE_FILE_NAME, Table.class);
+        this.initEmptyTable();
+        this.foodHandler = new FoodHandler();
+    }
+
+    private void initEmptyTable() {
         this.emptyData = this.tableData.stream()
                 .filter(table -> table.getFoods().size() == 0)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
     public void add() {
-//        Scanner scanner = new Scanner(System.in);
-//        Staff newStaff = new Staff();
-//
-//        System.out.print("Nhap ten nhan vien: ");
-//        String inputString = scanner.nextLine();
-//        newStaff.setName(inputString);
-//
-//        System.out.print("Nhap ngay sinh: ");
-//        inputString = scanner.nextLine();
-//        newStaff.setBirthDay(inputString);
-//
-//        System.out.print("Nhap gioi tinh: ");
-//        inputString = scanner.nextLine();
-//        newStaff.setGender(inputString);
-//
-//        System.out.print("Nhap que quan: ");
-//        inputString = scanner.nextLine();
-//        newStaff.setHomeTown(inputString);
-//
-//        newStaff.setStaffId(this.getUUIDv4());
-//
-//        this.staffData.add(newStaff);
-//        String staffDataJsonString = new Gson().toJson(this.staffData);
-//        this.writeFileData(Constants.STAFF_FILE_NAME, staffDataJsonString);
-//        System.out.println("Them nhan vien thanh cong");
+        Table newTable = new Table();
+
+        Integer inputInput = HandleInputSelection.inInt(" Nhập sức chứa của bàn:  ");
+        newTable.setContain(inputInput);
+        newTable.setFoods(new ArrayList<>());
+
+        String lastTableId = this.tableData.get(this.tableData.size() - 1).getTableId();
+        Pattern pattern = Pattern.compile("\\d+");
+        Matcher matcher = pattern.matcher(lastTableId);
+        while(matcher.find()) {
+            newTable.setTableId(String.format(Constants.TABLE_ID_FORMAT, Integer.parseInt(matcher.group()) + 1));
+        }
+
+        this.tableData.add(newTable);
+        this.emptyData.add(newTable);
+        String tableDataJsonString = new Gson().toJson(this.tableData);
+        this.writeFileData(Constants.TABLE_FILE_NAME, tableDataJsonString);
+        System.out.println("Them ban thanh cong");
+        System.out.println();
     }
 
     public void update() {
         this.checkTableList(this.tableData);
 
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Nhap STT ban can cap nhat: ");
-        int inputInt = scanner.nextInt();
+        int inputInt = HandleInputSelection.inInt(" Nhap STT ban can cap nhat: ");
 
         Table newTable = this.tableData.get(inputInt-1);
 
-        System.out.print("Nhap suc chua: ");
-        inputInt = scanner.nextInt();
+        inputInt = HandleInputSelection.inInt(" Nhap suc chua: ");
         newTable.setContain(inputInt);
 
         String staffDataJsonString = new Gson().toJson(this.tableData);
         this.writeFileData(Constants.TABLE_FILE_NAME, staffDataJsonString);
         System.out.println("Cap nhat ban thanh cong");
+        System.out.println();
     }
 
     public void delete() {
         this.checkTableList(this.tableData);
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Nhap STT ban can xoa: ");
-        int inputInt = scanner.nextInt();
-
+        int inputInt = HandleInputSelection.inInt(" Nhap STT ban can xoa: ");
         this.tableData.remove(inputInt-1);
 
         String staffDataJsonString = new Gson().toJson(this.tableData);
         this.writeFileData(Constants.TABLE_FILE_NAME, staffDataJsonString);
         System.out.println("Xoa ban thanh cong");
+        System.out.println();
     }
 
     public void checkTableList(@Nullable ArrayList<Table> tableData) {
@@ -102,7 +100,7 @@ public class TableHandler extends UtilsHandler implements MenuAction {
         this.printTable(tableData, columns, Table.class, methods);
     }
 
-    public void searchByContain() {
+    public void search() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Nhap suc chua: ");
         Integer inputInt = scanner.nextInt();
@@ -118,4 +116,42 @@ public class TableHandler extends UtilsHandler implements MenuAction {
 
         this.checkTableList(tableDataFiltered);
     }
+
+    public void order() {
+        this.checkTableList(null);
+        Integer tableNumber = HandleInputSelection.inInt(" Nhap STT ban can dat: ");
+        Table tableOrder = this.tableData.get(tableNumber - 1);
+
+        Integer foodNumber;
+        Integer quantity;
+        do {
+
+            this.foodHandler.foodList(0, null);
+            foodNumber = HandleInputSelection.inInt(" Nhap STT mon an: ");
+            quantity = HandleInputSelection.inInt(" Nhap so luong: ");
+            if (quantity > this.foodHandler.getFoodData().get(foodNumber - 1).getQuantity()) {
+                System.out.print("So luong nhap nhieu hon so luong thuc an con lai");
+            }
+            tableOrder.addFoods(this.foodHandler.getFoodData().get(foodNumber - 1), quantity);
+
+            Integer continueInput = HandleInputSelection.inInt(" Tiep tuc dat mon (0-de dung lai): ");
+            if (continueInput == 0) {
+                this.initEmptyTable();
+                String staffDataJsonString = new Gson().toJson(this.tableData);
+                this.writeFileData(Constants.TABLE_FILE_NAME, staffDataJsonString);
+                System.out.println("Dat ban thanh cong");
+                System.out.println();
+                return;
+            }
+        } while (true);
+    }
+
+    public void checkout() {
+        ArrayList<Table> tables = this.tableData.stream()
+                .filter(table -> table.getFoods().size() > 0)
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        this.checkTableList(tables);
+    }
+
 }

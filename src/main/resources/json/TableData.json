@@ -1,61 +1,77 @@
-[{
-  "tableId": 1,
-  "contain": 8,
-  "foods": []
-}, {
-  "tableId": 2,
-  "contain": 4,
-  "foods": []
-}, {
-  "tableId": 3,
-  "contain": 4,
-  "foods": []
-}, {
-  "tableId": 4,
-  "contain": 2,
-  "foods": []
-}, {
-  "tableId": 5,
-  "contain": 2,
-  "foods": []
-}, {
-  "tableId": 6,
-  "contain": 6,
-  "foods": []
-}, {
-  "tableId": 7,
-  "contain": 8,
-  "foods": []
-}, {
-  "tableId": 8,
-  "contain": 3,
-  "foods": []
-}, {
-  "tableId": 9,
-  "contain": 5,
-  "foods": []
-}, {
-  "tableId": 10,
-  "contain": 7,
-  "foods": []
-}, {
-  "tableId": 11,
-  "contain": 8,
-  "foods": []
-}, {
-  "tableId": 12,
-  "contain": 8,
-  "foods": []
-}, {
-  "tableId": 13,
-  "contain": 6,
-  "foods": []
-}, {
-  "tableId": 14,
-  "contain": 5,
-  "foods": []
-}, {
-  "tableId": 15,
-  "contain": 8,
-  "foods": []
-}]
+[
+  {
+    "tableId": "B001",
+    "contain": 8,
+    "foods": []
+  },
+  {
+    "tableId": "B002",
+    "contain": 4,
+    "foods": []
+  },
+  {
+    "tableId": "B003",
+    "contain": 4,
+    "foods": []
+  },
+  {
+    "tableId": "B004",
+    "contain": 2,
+    "foods": []
+  },
+  {
+    "tableId": "B005",
+    "contain": 2,
+    "foods": []
+  },
+  {
+    "tableId": "B006",
+    "contain": 6,
+    "foods": []
+  },
+  {
+    "tableId": "B007",
+    "contain": 8,
+    "foods": []
+  },
+  {
+    "tableId": "B008",
+    "contain": 3,
+    "foods": []
+  },
+  {
+    "tableId": "B009",
+    "contain": 5,
+    "foods": []
+  },
+  {
+    "tableId": "B010",
+    "contain": 7,
+    "foods": []
+  },
+  {
+    "tableId": "B011",
+    "contain": 8,
+    "foods": []
+  },
+  {
+    "tableId": "B012",
+    "contain": 8,
+    "foods": []
+  },
+  {
+    "tableId": "B013",
+    "contain": 6,
+    "foods": []
+  },
+  {
+    "tableId": "B014",
+    "contain": 5,
+    "foods": []
+  },
+  {
+    "tableId": "B015",
+    "contain": 8,
+    "foods": []
+  }
+]
