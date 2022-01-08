@@ -2,6 +2,7 @@ package com.project.coffee.Handler;
 
 import com.google.gson.Gson;
 import com.project.coffee.Interface.IMenuAction;
+import com.project.coffee.Model.Food;
 import com.project.coffee.Model.Table;
 import com.project.coffee.Utils.Constants;
 import com.project.coffee.Utils.HandleInputSelection;
@@ -20,6 +21,7 @@ public class TableHandler extends UtilsHandler implements IMenuAction {
     private ArrayList<Table> tableData;
     private ArrayList<Table> emptyData;
     private FoodHandler foodHandler;
+    private OrderHandler orderHandler;
 
     public TableHandler() {
         this.tableData = this.convertJsonDataToArrayList(Constants.TABLE_FILE_NAME, Table.class);
@@ -88,11 +90,13 @@ public class TableHandler extends UtilsHandler implements IMenuAction {
         columns.put("STT", 5);
         columns.put("Ma Ban", 15);
         columns.put("Suc Chua", 15);
+        columns.put("Trống ?", 7);
 
 
         ArrayList<String> methods = new ArrayList<String>() {{
             add("getTableId");
             add("getContain");
+            add("isEmpty");
         }};
 
         tableData = tableData != null ? tableData : this.emptyData;
@@ -122,6 +126,11 @@ public class TableHandler extends UtilsHandler implements IMenuAction {
         Integer tableNumber = HandleInputSelection.inInt(" Nhap STT ban can dat: ");
         Table tableOrder = this.tableData.get(tableNumber - 1);
 
+        if (tableOrder.getFoods().size() > 0) {
+            System.out.println("Ban da duoc dat");
+            return;
+        }
+
         Integer foodNumber;
         Integer quantity;
         do {
@@ -137,8 +146,8 @@ public class TableHandler extends UtilsHandler implements IMenuAction {
             Integer continueInput = HandleInputSelection.inInt(" Tiep tuc dat mon (0-de dung lai): ");
             if (continueInput == 0) {
                 this.initEmptyTable();
-                String staffDataJsonString = new Gson().toJson(this.tableData);
-                this.writeFileData(Constants.TABLE_FILE_NAME, staffDataJsonString);
+                String tableDataJsonString = new Gson().toJson(this.tableData);
+                this.writeFileData(Constants.TABLE_FILE_NAME, tableDataJsonString);
                 System.out.println("Dat ban thanh cong");
                 System.out.println();
                 return;
@@ -147,11 +156,24 @@ public class TableHandler extends UtilsHandler implements IMenuAction {
     }
 
     public void checkout() {
-        ArrayList<Table> tables = this.tableData.stream()
-                .filter(table -> table.getFoods().size() > 0)
-                .collect(Collectors.toCollection(ArrayList::new));
-
-        this.checkTableList(tables);
+        this.checkTableList(this.tableData);
+        Integer orderNumber = HandleInputSelection.inInt(" Nhap STT ban can thanh toan: ");
+        if (this.tableData.get(orderNumber - 1).getFoods().size() == 0) {
+            System.out.println("Bàn đang trống");
+            return;
+        }
+        Integer sum = 0;
+        Table table = this.tableData.get(orderNumber - 1);
+        for (int i = 0; i < table.getFoods().size(); i++) {
+            Map<String, Object> map = table.getFoods().get(i);
+            Food food = (Food) map.get("food");
+            sum += ((Integer) map.get("quantity")) * food.getPrice();
+        }
+        orderHandler.saveOrder(sum);
+        table.setFoods(new ArrayList<>());
+        String tableDataJsonString = new Gson().toJson(this.tableData);
+        this.writeFileData(Constants.TABLE_FILE_NAME, tableDataJsonString);
+        System.out.println("Thanh toán thành công, giá: " + sum + "$");
     }
 
 }

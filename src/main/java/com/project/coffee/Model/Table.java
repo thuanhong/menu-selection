@@ -49,6 +49,10 @@ public class Table {
         this.foods.add(newMap);
     }
 
+    public boolean isEmpty() {
+        return this.foods.size() == 0;
+    }
+
     @Override
     public String toString() {
         return "Table{" +

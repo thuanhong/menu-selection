@@ -73,7 +73,7 @@ public class HandleInputSelection {
                 Date javaDate = dateTimeFormat.parse(strDate);
                 return dateTimeFormat.format(javaDate);
             } catch (ParseException e) {
-                System.out.println(strDate + " is invalid Date format");
+                System.out.println(strDate + " is invalid Date format " + Constants.DATE_TIME_FORMAT);
             }
         }
     }

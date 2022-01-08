@@ -1,6 +1,7 @@
 package com.project.coffee;
 
 
+import com.project.coffee.Handler.OrderHandler;
 import com.project.coffee.Menu.ManageFood;
 import com.project.coffee.Menu.ManageStaff;
 import com.project.coffee.Menu.ManageTable;
@@ -10,6 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
         int swValue;
+        OrderHandler orderHandler = new OrderHandler();
         do {
             System.out.println("==============================");
             System.out.println("| COFFEE SHOP MENU SELECTION |");
@@ -18,6 +20,7 @@ public class Main {
             System.out.println("2. Quản lý thông tin bàn     ");
             System.out.println("3. Quản lý thức ăn           ");
             System.out.println("4. Thống kê                  ");
+            System.out.println("5. Thống kê theo khoảng thời gian");
             System.out.println("0. Thoat                     ");
             System.out.println("==============================");
             swValue = HandleInputSelection.inInt(" Select option: ");
@@ -39,6 +42,10 @@ public class Main {
                     ManageFood.main();
                     break;
                 case 4:
+                    orderHandler.statisticOrder(null);
+                    break;
+                case 5:
+                    orderHandler.statisticOrderByRange();
                     break;
                 default:
                     System.out.println("Invalid selection");
